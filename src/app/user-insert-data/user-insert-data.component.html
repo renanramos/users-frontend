@@ -1,0 +1,25 @@
+<form [formGroup]="userForm" (ngSubmit)="onSubmit()">
+  <div class="form-group">
+    <label for="name">Nome</label>
+    <input type="text" class="form-control" id="name" aria-describedby="nameHelp" formControlName="name" required>    
+  </div>
+  <div class="form-group">
+    <label for="lastname">Sobrenome</label>
+    <input type="text" class="form-control" id="lastname" formControlName="lastname" required />
+  </div>
+  <div class="form-group">
+    <label for="age">Idade</label>
+    <input type="number" class="form-control" id="age" formControlName="age" required />
+  </div>
+  <div>
+    <button type="submit" class="btn btn-primary">Salvar</button>
+  </div>
+</form>
+<br>
+<div class="row">
+  <div class="col col-sm-12 col-md-12 col-lg-12">
+    <div class="alert alert-primary" role="alert" *ngIf="showAlertMessage">
+      {{response}}
+    </div>
+  </div>
+</div>
