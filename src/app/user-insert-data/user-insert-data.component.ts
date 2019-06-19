@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpClient } from '@angular/common/http'
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { UserService } from '../user-service.service';
+import { UserService } from '../user-service/user-service.service';
 
 @Component({
   selector: 'app-user-insert-data',
@@ -16,7 +15,8 @@ export class UserInsertDataComponent implements OnInit {
   response = ''
   constructor(
     private formBuilder: FormBuilder,
-    private userService: UserService) { }
+    private userService: UserService) {
+  }
 
   ngOnInit() {
     this.userForm = this.formBuilder.group({
@@ -50,6 +50,7 @@ export class UserInsertDataComponent implements OnInit {
 
         if (response.status === 200) {
           this.userForm.reset();
+          this.userService.atualizaTabelaUsuarios(true);
         }
         this.showAlert(response.message)
       })

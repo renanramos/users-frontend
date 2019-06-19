@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
-import { UserService } from '../user-service.service';
+import { Component, OnInit, Input } from '@angular/core';
+import { UserService } from '../user-service/user-service.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-user-display-data',
@@ -8,11 +9,14 @@ import { UserService } from '../user-service.service';
 })
 export class UserDisplayDataComponent implements OnInit {
 
-  users = {}
+  users = []
+  subscription: Subscription;
 
-  constructor(
-    private userService: UserService
-  ) { }
+  constructor(private userService: UserService) {
+    this.subscription = userService.atualizaTabela$.subscribe(
+      val => val ? this.loadUsers() : val
+    )
+  }
 
   ngOnInit() {
     this.loadUsers()
@@ -21,7 +25,6 @@ export class UserDisplayDataComponent implements OnInit {
   loadUsers() {
     return this.userService.getAllUsers((data) => {
       this.users = data;
-      console.log(this.users)
     });
   }
 

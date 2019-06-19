@@ -1,0 +1,8 @@
+.align-icons{
+    text-align: center;
+}
+.align-icons i{
+    text-align: center;
+    padding: 5px;
+    cursor: pointer;
+}
