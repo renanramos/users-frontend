@@ -28,4 +28,12 @@ export class UserDisplayDataComponent implements OnInit {
     });
   }
 
+  editUser(user: any){    
+    this.userService.editarUsuario(user);
+  }
+
+  deleteUser(id: any){
+    this.userService.deleteUser(id);
+  }
+
 }

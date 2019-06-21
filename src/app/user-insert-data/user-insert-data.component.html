@@ -1,4 +1,5 @@
 <form [formGroup]="userForm" (ngSubmit)="onSubmit()">
+  <input type="hidden" name="id" formControlName="id">
   <div class="form-group">
     <label for="name">Nome</label>
     <input type="text" class="form-control" id="name" aria-describedby="nameHelp" formControlName="name" required>    

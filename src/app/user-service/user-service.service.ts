@@ -12,14 +12,20 @@ export class UserService {
   private api = '/api'
   private users = '/users'
 
-  private atualizaTabela = new Subject<boolean>();  
+  private atualizaTabela = new Subject<boolean>();
+  private editaUsuario = new Subject<any>();
 
   constructor(private http: HttpClient) { }
   
   atualizaTabela$ = this.atualizaTabela.asObservable();
+  editaUsuario$ = this.editaUsuario.asObservable();
 
   atualizaTabelaUsuarios(val: boolean){
     this.atualizaTabela.next(val);
+  }
+
+  editarUsuario(val: any){
+    this.editaUsuario.next(val);
   }
 
   // funções de consumo da API REST
@@ -30,9 +36,23 @@ export class UserService {
       })
   }
 
+  updateUser = (user: any, callback) => {
+    this.http.put<any>(`${this.host}:${this.port}${this.api}${this.users}`, user)
+      .subscribe((response) => {
+        callback(response)
+      })
+  }
+
   getAllUsers = (callback) => {
     return this.http.get(`${this.host}:${this.port}${this.api}${this.users}`).subscribe((data) => {
       callback(data)
+    })
+  }
+
+  deleteUser = (id) => {
+    return this.http.delete(`${this.host}:${this.port}${this.api}${this.users}/${id}`)
+    .subscribe((response)=>{
+      this.atualizaTabelaUsuarios(true);
     })
   }
 
